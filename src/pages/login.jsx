@@ -17,7 +17,7 @@ export default function Login() {
         password:'',
         email:'',
     });
-    const [mostrar, setMostrar]=React.useState(false)
+    const [hidden, setHidden] = React.useState('none');
     const validarEmail =(e)=>{
         let emailValid = Email.emailValid;
         emailValid = e.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
@@ -41,11 +41,11 @@ export default function Login() {
         validarPassword(e)
     }
     const onPress=()=>{
-        setMostrar(true)
+        setHidden('block')
     }
 
 return (
-    <View style={styles.container}>
+    <View style={theme.containerLogin}>
         <StatusBar style='light'/>
         <TouchableWithoutFeedback onPress={onPress}>
             <View style={theme.pessable}>
@@ -53,27 +53,20 @@ return (
             </View>
         </TouchableWithoutFeedback>
         <Text>Open up App.js to start workinga on your app!</Text>
-        <View>
+        {/* {hidden ? 'Hidden' : 'Visible'}  */}
+        <View style={{display:'none'}}>
             <TextInput style={theme.input}
                 keyboardType="email-address"
                 autoCapitalize="none" autoCorrect={false}
                 onChangeText={handleInputEmail} value={Email.email
                 }
-            ></TextInput>
+            />
             <TextInput style={theme.input}
                 onChangeText={handleInputPassword}
                 secureTextEntry={true}
                 value={Password.password}
-            ></TextInput>
+            />
         </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});

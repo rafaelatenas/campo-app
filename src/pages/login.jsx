@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, View, TextInput, TouchableWithoutFeedback, Image,Text } from 'react-native';
+import { Pressable, View, TextInput, TouchableWithoutFeedback, Image,Text, Button } from 'react-native';
 import theme from '../components/theme';
+import { Modal } from 'react-native';
 
 export default function Login() {
       
@@ -18,6 +19,7 @@ export default function Login() {
         email:'',
     });
     const [hidden, setHidden] = React.useState('none');
+    const [modalVisible, setModalVisible] = React.useState(true);
     const validarEmail =(e)=>{
         let emailValid = Email.emailValid;
         emailValid = e.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
@@ -41,32 +43,40 @@ export default function Login() {
         validarPassword(e)
     }
     const onPress=()=>{
-        setHidden('block')
+        setModalVisible(true)
     }
+
 
 return (
     <View style={theme.containerLogin}>
         <StatusBar style='light'/>
-        <TouchableWithoutFeedback onPress={onPress}>
-            <View style={theme.pessable}>
-                <Image source={require('../../landing/images/ats_logo-elise-blanca.png')}></Image>
+            <Modal
+                style={theme.ModalClaro}
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                fullScreen={true}
+            >
+                <View style={theme.centeredViewModal}>
+                    <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                        <Text>Hide Modal</Text>
+                    </Pressable>
+                </View>
+            </Modal>
+            <View style={theme.ViewTextClaro}>
+                <TextInput style={theme.input}
+                    keyboardType="email-address"
+                    autoCapitalize="none" autoCorrect={false}
+                    onChangeText={handleInputEmail} value={Email.email
+                    }
+                />
+                <TextInput style={theme.input}
+                    onChangeText={handleInputPassword}
+                    secureTextEntry={true}
+                    value={Password.password}
+                />
             </View>
-        </TouchableWithoutFeedback>
-        <Text>Open up App.js to start workinga on your app!</Text>
-        {/* {hidden ? 'Hidden' : 'Visible'}  */}
-        <View style={{display:'none'}}>
-            <TextInput style={theme.input}
-                keyboardType="email-address"
-                autoCapitalize="none" autoCorrect={false}
-                onChangeText={handleInputEmail} value={Email.email
-                }
-            />
-            <TextInput style={theme.input}
-                onChangeText={handleInputPassword}
-                secureTextEntry={true}
-                value={Password.password}
-            />
-        </View>
+        <Button style={theme.primaryButtons} onPress={onPress} title="Learn More"/>     
     </View>
   );
-}
+}{/*  */}

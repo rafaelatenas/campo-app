@@ -3,6 +3,7 @@ import React from 'react';
 import { Pressable, View, TextInput, TouchableWithoutFeedback, Image,Text, Button } from 'react-native';
 import theme from '../components/theme';
 import { Modal } from 'react-native';
+import LoginModal from './modal';
 
 export default function Login() {
       
@@ -58,6 +59,7 @@ return (
                 fullScreen={true}
             >
                 <View style={theme.centeredViewModal}>
+                    <LoginModal></LoginModal>
                     <Pressable onPress={() => setModalVisible(!modalVisible)}>
                         <Text>Hide Modal</Text>
                     </Pressable>
@@ -79,4 +81,4 @@ return (
         <Button style={theme.primaryButtons} onPress={onPress} title="Learn More"/>     
     </View>
   );
-}{/*  */}
+}
